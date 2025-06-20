@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "Framelink Figma MCP": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "figma-developer-mcp",
+        "--figma-api-key=figd_ecMXce7jPwKGgZZB5Ljhbh826uH0Lfr6AjS79fkj",
+        "--stdio"
+      ],
+      "alwaysAllow": [
+        "get_figma_data",
+        "download_figma_images"
+      ],
+      "timeout": 600,
+      "disabled": false
+    }
+  }
+}
