@@ -1,4 +1,4 @@
-package com.englishmate.core_service.entity.enumrations;
+package com.englishmate.core_service.entity.enumerations;
 
 
 import lombok.Getter;

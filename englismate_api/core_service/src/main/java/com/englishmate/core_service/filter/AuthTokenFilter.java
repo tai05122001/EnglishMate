@@ -1,6 +1,6 @@
 package com.englishmate.core_service.filter;
 
-import com.englishmate.core_service.utils.JwtUtils;
+import com.englishmate.common_service.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
