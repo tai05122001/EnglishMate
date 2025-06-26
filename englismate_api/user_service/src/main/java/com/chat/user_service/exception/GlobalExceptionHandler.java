@@ -1,6 +1,7 @@
 package com.chat.user_service.exception;
 
 import com.chat.user_service.dto.response.UserResponse;
+import com.chat.user_service.exception.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
