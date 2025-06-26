@@ -1,0 +1,68 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project Structure
+
+## Basic Information
+- **Language**: Java (using Maven)
+- **JDK**: 21
+- **Spring Boot**: 3.4.3
+- **Database**: MySQL
+- **Framework**: JPA (Java Persistence API)
+- **Metadata group**: vn.sparkminds
+- **Project name**: ai-test
+- **Architecture**: RESTful API
+
+## Directory Structure
+
+### 1. config (System configuration)
+- SecurityConfig: Security configuration for RESTful API with JWT authentication
+- RedisConfig, etc.
+
+### 2. constant (System constants)
+- ErrorCodeConstant: Error codes
+- UserRegexConstants: Regex patterns for validation
+
+### 3. controller (API controllers)
+- **commons** (/api/common): Public APIs not requiring token
+- **privates** (/api/private): Admin-only APIs
+- **internal** (/internal): Internal system APIs for microservices communication
+- **publics** (/api/public): APIs for authenticated regular users
+- **error**: Exception handling with @ControllerAdvice
+
+### 4. entity (JPA entities)
+- **abstractentity**: Abstract base entities
+- **enumerations**: Entity-specific enums
+
+### 5. dto (Data Transfer Objects)
+- **request**: Request DTOs
+- **response**: Response DTOs
+
+### 6. exception (Custom exceptions)
+
+### 7. repository (JPA repositories)
+
+### 8. service (Business logic)
+- **criteria**: Classes implementing Criteria for JPA specifications
+- **event**: Spring event and listeners
+- **impl**: Service implementations
+- **mapper**: DTO-Entity mappers (using MapStruct)
+
+### 9. utils (Utility classes)
+
+### 10. validator (Validation handlers)
+- **annotation**: Custom validation annotations
+
+### 11. handler (Websocket handlers)
+
+### 12. resource (System resources)
+- **database**: Database configurations
+  - **changelog**: Liquibase XML definitions (format: yyyymmdd_description.xml)
+  - **sql**: SQL scripts for complex queries
+- application.yml: Application configuration
+- log4j2.xml & log4j2-server.xml: Logging configuration
+
+
+### 13. test (Unit tests)

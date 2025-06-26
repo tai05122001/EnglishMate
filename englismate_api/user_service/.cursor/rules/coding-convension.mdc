@@ -1,0 +1,58 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Coding Conventions
+
+## Database and Entity Management
+
+### 1. Entity Creation
+- When creating a new Entity, generate the corresponding changelog
+- Add the new changelog file to the master.xml file
+
+### 2. Data Types
+- Use `Instant` for date/time in entities
+- Use `timestamp` type in database migrations
+
+## Error Handling
+
+### 3. Exception Management
+- For 400 errors, extend `BadRequestException`
+- Return message codes from `ErrorCodeConstant` for frontend internationalization
+- The error code structure base on the meaning of an exception
+ ex: Validation errors:
+    + validation.required_field
+    + validation.invalid_email
+    Business logic of user errors:
+    + user.error.user_not_found
+    Business logic of authentication errors:
+    + auth.error.unauthorized
+    System errors:
+    + system.internal_error
+    + system.external_service_error
+
+## Implementation Practices
+
+### 4. Service Implementation
+- Use MapStruct for converting between DTOs and Entities
+
+### 5. Language
+- Don't use Vietnamese in the project (comments, error messages, exceptions, etc.)
+
+### 6. Validation
+- Validate all request DTOs
+- Use Validation Annotations in DTO classes
+- Error messages must be defined in `ErrorCodeConstant`
+
+### 7. Authentication
+- For APIs requiring login, get user information (UserId or Email) from SecurityContextHolder
+
+### 8. Controller Design
+- Don't put logic in controllers
+- All logic should be in service layer and called from controllers
+
+### 9. Have to apply SOLID principles in project
+
+
+### 10. generate swagger for each api
