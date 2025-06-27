@@ -1,6 +1,6 @@
-package com.englishmate.auth_service.utils;
+package com.englishmate.common_service.utils;
 
-import com.englishmate.auth_service.entity.AbstractAuditEntity;
+import com.englishmate.common_service.entity.AbstractAuditEntity;
 
 import java.time.Instant;
 

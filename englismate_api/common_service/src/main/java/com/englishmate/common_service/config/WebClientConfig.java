@@ -1,4 +1,4 @@
-package com.englishmate.auth_service.config;
+package com.englishmate.common_service.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +11,20 @@ public class WebClientConfig {
     @Value("${user-service.base-url}") // Get base URL from application.properties
     private String userServiceBaseUrl;
 
-    @Bean
-    public WebClient webClient(WebClient.Builder builder) {
+    @Value("${auth-service.base-url}") // Get base URL from application.properties
+    private String authServiceBaseUrl;
+
+    @Bean(name = "webClientUser")
+    public WebClient webClientUser(WebClient.Builder builder) {
         return builder
                 .baseUrl(userServiceBaseUrl)
+                .build();
+    }
+
+    @Bean(name = "webClientAuth")
+    public WebClient webClientAuth(WebClient.Builder builder) {
+        return builder
+                .baseUrl(authServiceBaseUrl)
                 .build();
     }
 } 

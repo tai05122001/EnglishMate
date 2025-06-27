@@ -1,4 +1,4 @@
-package com.englishmate.auth_service.dto.request;
+package com.englishmate.common_service.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
