@@ -1,7 +1,7 @@
-package com.englishmate.auth_service.filter;
+package com.englishmate.common_service.filter;
 
-import com.englishmate.auth_service.constant.ErrorCodeConstant;
-import com.englishmate.auth_service.exception.JwtAuthenticationException;
+import com.englishmate.common_service.constant.ErrorCodeConstant;
+import com.englishmate.common_service.exception.JwtAuthenticationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
 package com.englishmate.auth_service.service.impl;
 
-import com.englishmate.auth_service.dto.user.UserAuthDto;
-import com.englishmate.auth_service.service.UserServiceClient;
+import com.englishmate.common_service.dto.response.UserAuthDto;
+import com.englishmate.common_service.service.UserServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

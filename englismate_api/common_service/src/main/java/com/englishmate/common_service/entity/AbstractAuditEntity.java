@@ -1,4 +1,4 @@
-package com.englishmate.auth_service.entity;
+package com.englishmate.common_service.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

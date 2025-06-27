@@ -1,10 +1,10 @@
-package com.englishmate.auth_service.filter;
+package com.englishmate.common_service.filter;
 
-import com.englishmate.auth_service.constant.ErrorCodeConstant;
-import com.englishmate.auth_service.dto.user.UserAuthDto;
-import com.englishmate.auth_service.exception.BadRequestException;
-import com.englishmate.auth_service.exception.JwtAuthenticationException;
-import com.englishmate.auth_service.service.UserServiceClient;
+import com.englishmate.common_service.constant.ErrorCodeConstant;
+import com.englishmate.common_service.dto.response.UserAuthDto;
+import com.englishmate.common_service.exception.BadRequestException;
+import com.englishmate.common_service.exception.JwtAuthenticationException;
+import com.englishmate.common_service.service.UserServiceClient;
 import com.englishmate.common_service.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

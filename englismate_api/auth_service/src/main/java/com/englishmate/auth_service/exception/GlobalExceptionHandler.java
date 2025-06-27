@@ -1,14 +1,13 @@
 package com.englishmate.auth_service.exception;
 
-import com.englishmate.auth_service.constant.ErrorCodeConstant;
 import com.englishmate.auth_service.dto.response.MessageResponse;
+import com.englishmate.common_service.constant.ErrorCodeConstant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

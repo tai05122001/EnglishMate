@@ -1,4 +1,4 @@
-package com.englishmate.auth_service.constant;
+package com.englishmate.common_service.constant;
 
 public final class ErrorCodeConstant {
 

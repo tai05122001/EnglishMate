@@ -1,19 +1,22 @@
-package com.englishmate.auth_service.service.impl;
+package com.englishmate.common_service.service.impl;
 
-import com.englishmate.auth_service.dto.request.LoginRequest;
-import com.englishmate.auth_service.dto.request.UpdateStatusRequest;
-import com.englishmate.auth_service.dto.request.UserCreationRequest;
-import com.englishmate.auth_service.dto.user.UserAuthDto;
-import com.englishmate.auth_service.service.UserServiceClient;
+import com.englishmate.common_service.dto.request.UpdateStatusRequest;
+import com.englishmate.common_service.dto.request.UserCreationRequest;
+import com.englishmate.common_service.dto.response.UserAuthDto;
+import com.englishmate.common_service.service.UserServiceClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceClientImpl implements UserServiceClient {
-    private final WebClient webClient;
+
+    @Autowired
+    @Qualifier("webClientUser")
+    private WebClient webClientUser;
 
     /**
      * Retrieves user details from the user_service by email.
@@ -21,7 +24,7 @@ public class UserServiceClientImpl implements UserServiceClient {
      * @return A Mono containing UserAuthDto if found, otherwise an empty Mono.
      */
     public Mono<UserAuthDto> getUserByEmail(String email) {
-        return webClient.get()
+        return webClientUser.get()
                 .uri("/api/public/users/email/{email}", email) // Assuming user_service will have this endpoint
                 .retrieve()
                 .bodyToMono(UserAuthDto.class)
@@ -34,7 +37,7 @@ public class UserServiceClientImpl implements UserServiceClient {
 
     @Override
     public Mono<UserAuthDto> getUserByUsername(String username) {
-        return webClient.get()
+        return webClientUser.get()
                 .uri("/api/public/users/username/{username}", username) // Assuming user_service will have this endpoint
                 .retrieve()
                 .bodyToMono(UserAuthDto.class)
@@ -50,8 +53,9 @@ public class UserServiceClientImpl implements UserServiceClient {
      * @param userCreationRequest The DTO containing new user information.
      * @return A Mono containing UserAuthDto of the created user, or an error.
      */
+    @Override
     public Mono<UserAuthDto> createUser(UserCreationRequest userCreationRequest) {
-        return webClient.post()
+        return webClientUser.post()
                 .uri("/api/public/users") // Endpoint for creating users in user_service
                 .bodyValue(userCreationRequest)
                 .retrieve()
@@ -64,7 +68,7 @@ public class UserServiceClientImpl implements UserServiceClient {
 
     @Override
     public Mono<Boolean> updateStatusUser(UpdateStatusRequest request) {
-        return webClient.put()
+        return webClientUser.put()
                 .uri("/api/public/users/status") // Endpoint for creating users in user_service
                 .bodyValue(request)
                 .retrieve()
