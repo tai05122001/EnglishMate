@@ -1,4 +1,4 @@
-package com.englishmate.auth_service.constant;
+package com.englishmate.user_service.constant;
 
 public final class MessageErrorConstants {
     public static final String EMAIL_CANNOT_BE_EMPTY = "Email cannot be empty";
@@ -12,5 +12,9 @@ public final class MessageErrorConstants {
     public static final String USER_REGISTERED_SUCCESSFULLY = "User registered successfully!";
     public static final String FAILED_TO_REGISTER_USER = "Failed to register user.";
     public static final String LOGOUT_SUCCESSFUL = "Logout successful";
+
+
+    public static final String USER_NOT_FOUND = "User not found";
+    public static final String EMAIL_ALREADY_EXISTS = "Email already exists";
     private MessageErrorConstants() {}
 }

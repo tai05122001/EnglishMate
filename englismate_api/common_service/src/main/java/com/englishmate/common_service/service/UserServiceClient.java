@@ -10,6 +10,6 @@ import reactor.core.publisher.Mono;
 public interface UserServiceClient {
     Mono<UserAuthDto> getUserByEmail(String email);
     Mono<UserAuthDto> getUserByUsername(String username);
-    Mono<UserAuthDto> createUser(UserCreationRequest userCreationRequest);
+    Mono<Void> createUser(UserCreationRequest userCreationRequest);
     Mono<Boolean> updateStatusUser(UpdateStatusRequest request);
 } 

@@ -4,7 +4,6 @@ import com.englishmate.common_service.dto.request.UpdateStatusRequest;
 import com.englishmate.common_service.dto.request.UserCreationRequest;
 import com.englishmate.common_service.dto.response.UserAuthDto;
 import com.englishmate.common_service.service.UserServiceClient;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -50,16 +49,17 @@ public class UserServiceClientImpl implements UserServiceClient {
 
     /**
      * Sends a request to user_service to create a new user.
+     *
      * @param userCreationRequest The DTO containing new user information.
      * @return A Mono containing UserAuthDto of the created user, or an error.
      */
     @Override
-    public Mono<UserAuthDto> createUser(UserCreationRequest userCreationRequest) {
+    public Mono<Void> createUser(UserCreationRequest userCreationRequest) {
         return webClientUser.post()
                 .uri("/api/public/users") // Endpoint for creating users in user_service
                 .bodyValue(userCreationRequest)
                 .retrieve()
-                .bodyToMono(UserAuthDto.class)
+                .bodyToMono(Void.class)
                 .onErrorResume(e -> {
                     System.err.println("Error creating user in user_service: " + e.getMessage());
                     return Mono.error(new RuntimeException("Failed to create user in user_service", e)); // Re-throw or handle specific error
