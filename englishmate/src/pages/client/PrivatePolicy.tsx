@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import MainLayout from "../layouts/MainLayout";
-import { TableOfContents, PolicySection, ContactCard } from "../components";
+import MainLayout from "../../layouts/MainLayout";
+import { TableOfContents, PolicySection, ContactCard } from "../../components";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 const PrivacyPolicy: React.FC = () => {

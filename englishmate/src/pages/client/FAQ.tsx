@@ -1,6 +1,6 @@
 import React from "react";
 import { Mail } from "lucide-react";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../../layouts/MainLayout";
 import { Button } from "@/components/ui/button";
 import FAQItem from "@/components/common/FAQItem";
 

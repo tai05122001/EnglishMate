@@ -10,6 +10,7 @@ import {
   Twitter,
   Instagram,
   Linkedin,
+  ChevronDown,
 } from "lucide-react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -25,12 +26,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { authService } from "@/features/auth/services/auth.service";
 interface MainLayoutProps {
   children: ReactNode;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState({
+    main: false,
+    courses: false,
+  });
 
   const { isAuthenticated, user } = useSelector(
     (state: RootState) => state.auth
@@ -38,6 +43,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
+    const res = authService.loout();
+    g;
     dispatch(logout());
     navigate("/");
   };
@@ -70,16 +77,25 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             >
               <span className="text-sm pl-[2px]">Dashboard</span>
             </NavLink>
-            <NavLink
-              to="/courses"
-              className={({ isActive }) =>
-                `flex items-center space-x-1 hover:text-gray-900 ${
-                  isActive ? "text-teal-500 font-semibold" : "text-gray-600"
-                }`
-              }
-            >
-              <span className="text-sm pl-[2px]">Courses</span>
-            </NavLink>
+            {/* Courses Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center space-x-1 bg-transparent border-0 p-0 hover:text-gray-900 focus:outline-none focus-visible:outline-none">
+                <span className="text-sm pl-[2px]">Courses</span>
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <NavLink to="/courses" className="w-full text-left">
+                    All Courses
+                  </NavLink>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <NavLink to="/courses/create" className="w-full text-left">
+                    Create Course
+                  </NavLink>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <NavLink
               to="/practice"
               className={({ isActive }) =>
@@ -146,7 +162,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleLogout}>
                     Logout
-                  </DropdownMenuItem>      
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
@@ -156,14 +172,16 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           {/* Mobile menu button */}
           <button
             className="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 bg-transparent border-0 focus:outline-none focus-visible:outline-none"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() =>
+              setMobileMenuOpen((prev) => ({ ...prev, main: !prev.main }))
+            }
             aria-label="Toggle menu"
           >
             <Menu size={24} />
           </button>
         </div>
         {/* Mobile nav */}
-        {mobileMenuOpen && (
+        {mobileMenuOpen.main && (
           <nav className="md:hidden bg-white border-t border-gray-300 px-4 py-2 space-y-2">
             <NavLink
               to="/"
@@ -176,16 +194,50 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             >
               <span className="text-sm pl-[2px]">Dashboard</span>
             </NavLink>
-            <NavLink
-              to="/courses"
-              className={({ isActive }) =>
-                `flex items-center space-x-1 hover:text-gray-900 ${
-                  isActive ? "text-teal-500 font-semibold" : "text-gray-600"
-                }`
-              }
-            >
-              <span className="text-sm pl-[2px]">Courses</span>
-            </NavLink>
+            {/* Mobile Courses Submenu */}
+            <div>
+              <button
+                className="flex items-center space-x-1 w-full text-left text-gray-600 hover:text-gray-900 focus:outline-none"
+                onClick={() =>
+                  setMobileMenuOpen((prev) => ({
+                    ...prev,
+                    courses: !prev.courses,
+                  }))
+                }
+                type="button"
+              >
+                <span className="text-sm pl-[2px]">Courses</span>
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
+              {mobileMenuOpen.courses && (
+                <div className="pl-6 flex flex-col space-y-1 mt-1">
+                  <NavLink
+                    to="/courses"
+                    className={({ isActive }) =>
+                      `text-sm ${
+                        isActive
+                          ? "text-teal-500 font-semibold"
+                          : "text-gray-600"
+                      }`
+                    }
+                  >
+                    All Courses
+                  </NavLink>
+                  <NavLink
+                    to="/courses/create"
+                    className={({ isActive }) =>
+                      `text-sm ${
+                        isActive
+                          ? "text-teal-500 font-semibold"
+                          : "text-gray-600"
+                      }`
+                    }
+                  >
+                    Create Course
+                  </NavLink>
+                </div>
+              )}
+            </div>
             <NavLink
               to="/practice"
               className={({ isActive }) =>

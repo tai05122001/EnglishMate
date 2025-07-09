@@ -1,6 +1,6 @@
 import { MingcuteGoogleFill } from "@/components/icon/Google";
 import { IcOutlineFacebook } from "@/components/icon/Facebook";
-import postLogin from "../assets/poster_login3.png";
+import postLogin from "../../assets/poster_login3.png";
 import {
   Card,
   CardContent,
@@ -25,7 +25,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../store/authSlice";
+import { loginSuccess } from "@/store/authSlice";
+import { authService } from "@/features/auth/services/auth.service";
+import { toast } from "sonner";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -47,18 +49,20 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmitFormLogin = (values: LoginValues) => {
-    console.log("Form submitted successfully with values:", values);
-    console.log("Email:", values.email);
-    console.log("Password:", values.password);
-    console.log("Remember me:", values.remember);
+  const handleSubmitFormLogin = async (values: LoginValues) => {
+    try {
+      const response = await authService.login(values);
+      console.log(response);
+      toast.success("Login successful!");
+      dispatch(
+        loginSuccess({ userEmail: values.email, token: response.token })
+      );
 
-    if (values.email === "admin@gmail.com" && values.password === "123456") {
-      console.log("Login successful! Dispatching loginSuccess action.");
-      dispatch(loginSuccess({ userEmail: values.email, token: "fake_jwt_token_123" }));
-      navigate("/");
-    } else {
-      console.log("Invalid credentials.");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    } catch (err: any) {
+      toast.error(err.response.data.message);
     }
   };
   return (
@@ -97,7 +101,10 @@ export default function Login() {
 
               <CardContent className="space-y-6 px-0">
                 <Form {...form}>
-                  <form className="space-y-6" onSubmit={form.handleSubmit(handleSubmitFormLogin)}>
+                  <form
+                    className="space-y-6"
+                    onSubmit={form.handleSubmit(handleSubmitFormLogin)}
+                  >
                     <FormField
                       control={form.control}
                       name="email"
@@ -105,7 +112,11 @@ export default function Login() {
                         <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="Enter your email" {...field} />
+                            <Input
+                              type="email"
+                              placeholder="Enter your email"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -118,7 +129,11 @@ export default function Login() {
                         <FormItem>
                           <FormLabel>Password</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder="Enter your password" {...field} />
+                            <Input
+                              type="password"
+                              placeholder="Enter your password"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -131,9 +146,16 @@ export default function Login() {
                         render={({ field }) => (
                           <FormItem className="flex items-center space-x-2 mb-0">
                             <FormControl>
-                              <Checkbox checked={field.value} onCheckedChange={field.onChange} className="p-0" />
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className="p-0"
+                              />
                             </FormControl>
-                            <FormLabel htmlFor="remember" className="text-sm font-normal mb-0">
+                            <FormLabel
+                              htmlFor="remember"
+                              className="text-sm font-normal mb-0"
+                            >
                               Remember me
                             </FormLabel>
                           </FormItem>
