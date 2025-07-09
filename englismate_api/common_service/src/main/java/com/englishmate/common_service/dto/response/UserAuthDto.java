@@ -19,12 +19,10 @@ import java.util.stream.Collectors;
 @Setter
 @Builder
 public class UserAuthDto implements UserDetails {
-    private Long id;
     private String email;
     private String username;
     private String password;
     private Set<String> roles;
-    private String packageType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

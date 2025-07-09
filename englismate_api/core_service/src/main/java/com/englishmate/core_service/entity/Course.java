@@ -1,6 +1,7 @@
 package com.englishmate.core_service.entity;
 
 import com.englishmate.core_service.entity.enumerations.CourseLevel;
+import com.englishmate.core_service.entity.enumerations.CourseStatus;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
@@ -65,7 +66,7 @@ public class Course implements Serializable {
      */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;
+    private CourseStatus status;
 
     /**
      * Points required to unlock the course, if applicable.
@@ -78,18 +79,4 @@ public class Course implements Serializable {
      */
     @Column(name = "required_course_id")
     private Long requiredCourseId;
-
-    /**
-     * Enum representing the status of a course.
-     */
-    public enum Status {
-        /**
-         * The course is unlocked and accessible.
-         */
-        UNLOCKED,
-        /**
-         * The course is locked and requires conditions to access.
-         */
-        LOCKED
-    }
-} 
+}

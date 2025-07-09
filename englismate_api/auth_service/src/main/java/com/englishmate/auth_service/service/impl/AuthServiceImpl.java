@@ -6,14 +6,14 @@ import com.englishmate.auth_service.dto.request.LoginRequest;
 import com.englishmate.auth_service.dto.request.SignupRequest;
 import com.englishmate.auth_service.dto.response.JwtResponse;
 import com.englishmate.auth_service.dto.response.MessageResponse;
+import com.englishmate.auth_service.dto.response.UserAuthDto;
 import com.englishmate.auth_service.entity.RefreshToken;
 import com.englishmate.common_service.dto.request.UpdateStatusRequest;
 import com.englishmate.common_service.dto.request.UserCreationRequest;
-import com.englishmate.common_service.dto.response.UserAuthDto;
 import com.englishmate.common_service.exception.BadRequestException;
 import com.englishmate.auth_service.repository.RefreshTokenRepository;
 import com.englishmate.auth_service.service.AuthService;
-import com.englishmate.common_service.service.UserServiceClient;
+import com.englishmate.auth_service.client.UserServiceFeignClient;
 import com.englishmate.common_service.utils.JwtUtils;
 import com.englishmate.common_service.utils.CommonUtils;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,7 +37,7 @@ import java.util.UUID;
 public class AuthServiceImpl implements AuthService {
 
     private final JwtUtils jwtUtils;
-    private final UserServiceClient userServiceClient;
+    private final UserServiceFeignClient userServiceFeignClient;
     private final PasswordEncoder encoder;
     private final RefreshTokenRepository refreshTokenRepository;
 
@@ -48,48 +48,61 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public JwtResponse login(LoginRequest loginRequest, HttpServletResponse response) {
         if (loginRequest.getEmail() == null || loginRequest.getEmail().isEmpty()) {
-            throw new BadRequestException(MessageErrorConstants.EMAIL_CANNOT_BE_EMPTY, ErrorCodeConstant.VALIDATION_REQUIRED_FIELD);
+            throw new BadRequestException(MessageErrorConstants.EMAIL_CANNOT_BE_EMPTY,
+                    ErrorCodeConstant.VALIDATION_REQUIRED_FIELD);
         }
 
         if (loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
-            throw new BadRequestException(MessageErrorConstants.PASSWORD_CANNOT_BE_EMPTY, ErrorCodeConstant.VALIDATION_REQUIRED_FIELD);
+            throw new BadRequestException(MessageErrorConstants.PASSWORD_CANNOT_BE_EMPTY,
+                    ErrorCodeConstant.VALIDATION_REQUIRED_FIELD);
         }
 
-        UserAuthDto userAuthDto = userServiceClient.getUserByEmail(loginRequest.getEmail()).block();
+        UserAuthDto userAuthDto = userServiceFeignClient.getUserByEmail(loginRequest.getEmail());
         if (Objects.isNull(userAuthDto)) {
-            throw new BadRequestException(MessageErrorConstants.USER_WITH_EMAIL_NOT_EXISTS, ErrorCodeConstant.VALIDATION_INVALID_EMAIL);
+            throw new BadRequestException(MessageErrorConstants.USER_WITH_EMAIL_NOT_EXISTS,
+                    ErrorCodeConstant.VALIDATION_INVALID_EMAIL);
         }
 
         if (!encoder.matches(loginRequest.getPassword(), userAuthDto.getPassword())) {
-            throw new BadRequestException(MessageErrorConstants.INVALID_EMAIL_OR_PASSWORD, ErrorCodeConstant.AUTH_ERROR_UNAUTHORIZED);
+            throw new BadRequestException(MessageErrorConstants.INVALID_EMAIL_OR_PASSWORD,
+                    ErrorCodeConstant.AUTH_ERROR_UNAUTHORIZED);
         }
-        Boolean isUpdate = userServiceClient.updateStatusUser(UpdateStatusRequest.builder().email(loginRequest.getEmail()).status("ACTIVE").build()).block();
+
+        Boolean isUpdate = userServiceFeignClient.updateStatusUser(
+                UpdateStatusRequest.builder().email(loginRequest.getEmail()).status("ACTIVE").build());
         if (Boolean.TRUE.equals(isUpdate)) {
             this.setRefreshTokenIntoCookie(response, createRefreshToken(loginRequest.getEmail()));
             String jwt = jwtUtils.generateJwtToken(userAuthDto.getEmail());
-            return JwtResponse.builder().token(jwt).type("Bearer").email(userAuthDto.getEmail()).username(userAuthDto.getUsername()).roles(userAuthDto.getRoles()).build();
+            return JwtResponse.builder().token(jwt).type("Bearer").email(userAuthDto.getEmail())
+                    .username(userAuthDto.getUsername()).roles(userAuthDto.getRoles()).build();
         }
-        throw new BadRequestException(MessageErrorConstants.USER_WITH_CHANGE_STATUS_ERROR, ErrorCodeConstant.USER_ERROR_INVALID_STATUS);
+        throw new BadRequestException(MessageErrorConstants.USER_WITH_CHANGE_STATUS_ERROR,
+                ErrorCodeConstant.USER_ERROR_INVALID_STATUS);
 
     }
 
     @Transactional
     @Override
     public JwtResponse refreshToken(String refreshToken) {
-        RefreshToken token = refreshTokenRepository.findByToken(refreshToken).orElseThrow(() -> new BadRequestException(MessageErrorConstants.REFRESH_TOKEN_NOT_FOUND, ErrorCodeConstant.AUTH_ERROR_UNAUTHORIZED));
+        RefreshToken token = refreshTokenRepository.findByToken(refreshToken)
+                .orElseThrow(() -> new BadRequestException(MessageErrorConstants.REFRESH_TOKEN_NOT_FOUND,
+                        ErrorCodeConstant.AUTH_ERROR_UNAUTHORIZED));
 
         if (token.getExpiryDate().isBefore(Instant.now())) {
             refreshTokenRepository.delete(token);
-            throw new BadRequestException(MessageErrorConstants.REFRESH_TOKEN_EXPIRED, ErrorCodeConstant.AUTH_ERROR_TOKEN_INVALID);
+            throw new BadRequestException(MessageErrorConstants.REFRESH_TOKEN_EXPIRED,
+                    ErrorCodeConstant.AUTH_ERROR_TOKEN_INVALID);
         }
 
-        UserAuthDto userAuthDto = userServiceClient.getUserByEmail(token.getEmail()).block();
+        UserAuthDto userAuthDto = userServiceFeignClient.getUserByEmail(token.getEmail());
         if (Objects.isNull(userAuthDto)) {
-            throw new BadRequestException(MessageErrorConstants.USER_ASSOCIATED_WITH_REFRESH_TOKEN_NOT_FOUND, ErrorCodeConstant.USER_ERROR_NOT_FOUND);
+            throw new BadRequestException(MessageErrorConstants.USER_ASSOCIATED_WITH_REFRESH_TOKEN_NOT_FOUND,
+                    ErrorCodeConstant.USER_ERROR_NOT_FOUND);
         }
 
         String newAccessToken = jwtUtils.generateJwtToken(userAuthDto.getEmail());
-        return JwtResponse.builder().token(newAccessToken).type("Bearer").email(userAuthDto.getEmail()).username(userAuthDto.getUsername()).token(newAccessToken).roles(userAuthDto.getRoles()).build();
+        return JwtResponse.builder().token(newAccessToken).type("Bearer").email(userAuthDto.getEmail())
+                .username(userAuthDto.getUsername()).token(newAccessToken).roles(userAuthDto.getRoles()).build();
     }
 
     /**
@@ -97,7 +110,8 @@ public class AuthServiceImpl implements AuthService {
      * @param token
      */
     private void setRefreshTokenIntoCookie(HttpServletResponse response, RefreshToken token) {
-        ResponseCookie cookie = ResponseCookie.from("refreshToken", token.getToken()).httpOnly(true).secure(true).path("/").maxAge(3600).build();
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", token.getToken()).httpOnly(true).secure(true)
+                .path("/").maxAge(3600).build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     }
 
@@ -106,7 +120,8 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     public RefreshToken createRefreshToken(String email) {
-        RefreshToken refreshToken = RefreshToken.builder().email(email).token(UUID.randomUUID().toString()).expiryDate(Instant.now().plusMillis(jwtExpirationMs * 4L)).build();
+        RefreshToken refreshToken = RefreshToken.builder().email(email).token(UUID.randomUUID().toString())
+                .expiryDate(Instant.now().plusMillis(jwtExpirationMs * 4L)).build();
         CommonUtils.createAuditFields(refreshToken, email);
         return refreshTokenRepository.save(refreshToken);
     }
@@ -116,6 +131,7 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
+    @Transactional
     public MessageResponse register(SignupRequest signupRequest) {
         Set<String> roles = new HashSet<>();
         if (signupRequest.getRoles() != null && !signupRequest.getRoles().isEmpty()) {
@@ -124,27 +140,34 @@ public class AuthServiceImpl implements AuthService {
             roles.add("ROLE_USER");
         }
 
-        UserCreationRequest userCreationRequest = UserCreationRequest.builder().email(signupRequest.getEmail()).password(encoder.encode(signupRequest.getPassword())).fullName(signupRequest.getUsername()).roles(roles).packageType("FREE").build();
+        UserCreationRequest userCreationRequest = UserCreationRequest.builder()
+                .email(signupRequest.getEmail())
+                .password(encoder.encode(signupRequest.getPassword()))
+                .username(signupRequest.getUsername())
+                .roles(roles)
+                .packageType("FREE")
+                .build();
 
-        UserAuthDto createdUser = userServiceClient.createUser(userCreationRequest).block();
+        userServiceFeignClient.createUser(userCreationRequest);
 
-        if (createdUser != null) {
-            return MessageResponse.builder().message(MessageErrorConstants.USER_REGISTERED_SUCCESSFULLY).build();
-        } else {
-            throw new BadRequestException(MessageErrorConstants.FAILED_TO_REGISTER_USER, ErrorCodeConstant.SYSTEM_INTERNAL_ERROR);
-        }
+        return MessageResponse.builder().message(MessageErrorConstants.USER_REGISTERED_SUCCESSFULLY).build();
     }
 
     @Override
     @Transactional
     public MessageResponse logout(String refreshToken) {
-        RefreshToken token = refreshTokenRepository.findByToken(refreshToken).orElseThrow(() -> new BadRequestException(MessageErrorConstants.REFRESH_TOKEN_NOT_FOUND, ErrorCodeConstant.AUTH_ERROR_UNAUTHORIZED));
-        Boolean isUpdate = userServiceClient.updateStatusUser(UpdateStatusRequest.builder().email(token.getEmail()).status("INACTIVE").build()).block();
+        RefreshToken token = refreshTokenRepository.findByToken(refreshToken)
+                .orElseThrow(() -> new BadRequestException(MessageErrorConstants.REFRESH_TOKEN_NOT_FOUND,
+                        ErrorCodeConstant.AUTH_ERROR_UNAUTHORIZED));
+
+        Boolean isUpdate = userServiceFeignClient
+                .updateStatusUser(UpdateStatusRequest.builder().email(token.getEmail()).status("INACTIVE").build());
         if (isUpdate) {
             CommonUtils.deleteAuditFields(token, token.getEmail());
             refreshTokenRepository.delete(token);
             return MessageResponse.builder().message(MessageErrorConstants.LOGOUT_SUCCESSFUL).build();
         }
-        throw new BadRequestException(MessageErrorConstants.USER_WITH_CHANGE_STATUS_ERROR, ErrorCodeConstant.USER_ERROR_INVALID_STATUS);
+        throw new BadRequestException(MessageErrorConstants.USER_WITH_CHANGE_STATUS_ERROR,
+                ErrorCodeConstant.USER_ERROR_INVALID_STATUS);
     }
 }

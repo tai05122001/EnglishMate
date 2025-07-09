@@ -1,3 +1,4 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/20240730_create_refresh_token_table_from_entity.xml
+      file: 20240730_create_refresh_token_table_from_entity.xml
+      relativeToChangelogFile: true

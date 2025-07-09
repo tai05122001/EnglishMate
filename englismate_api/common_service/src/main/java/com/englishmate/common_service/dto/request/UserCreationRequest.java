@@ -12,7 +12,7 @@ import java.util.Set;
 public class UserCreationRequest {
     private String email;
     private String password;
-    private String fullName; // Corresponds to username in SignupRequest
+    private String username; // Corresponds to username in SignupRequest
     private Set<String> roles; // For the default role
     private String packageType; // For the default package type (e.g., FREE)
 }
