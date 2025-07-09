@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
-import MainLayout from "@/layouts/MainLayout";
+import ButtonGetStarted from "@/components/common/ButtonGetStarted";
+import CourseContentAccordion from "@/components/common/CourseContentAccordion";
+import StarRating from "@/components/common/StarRating";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight, BookOpen, Check, Lock, Play } from "lucide-react";
+import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { Play, Check, Lock, BookOpen, ArrowRight } from "lucide-react";
-import StarRating from "@/components/common/StarRating";
-import CourseContentAccordion from "@/components/common/CourseContentAccordion";
+import poster4 from "../assets/poster_courses1.png";
+import poster3 from "../assets/poster_courses2.png";
 import poster1 from "../assets/poster_courses3.png";
 import poster2 from "../assets/poster_courses4.png";
-import poster3 from "../assets/poster_courses2.png";
-import poster4 from "../assets/poster_courses1.png";
-import { Badge } from "@/components/ui/badge";
-import ButtonGetStarted from "@/components/common/ButtonGetStarted";
 
 interface CourseLesson {
   id: string;
@@ -260,7 +259,7 @@ const Detail = () => {
   };
 
   return (
-    <MainLayout>
+    <>
       <div className="pt-20">
         {/* Hero Section */}
         <section className="bg-gray-50 py-12">
@@ -278,7 +277,7 @@ const Detail = () => {
                       <span className="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-md text-sm">
                         English for Beginners Course Banner
                       </span>
-                      
+
                       {isUnlocked && (
                         <span className="absolute top-4 right-4 bg-green-100 text-green-800 px-3 py-1 rounded-md text-sm font-medium flex items-center gap-1">
                           <BookOpen size={14} />
@@ -486,7 +485,7 @@ const Detail = () => {
               <h2 className="text-2xl font-semibold text-gray-900 mb-8">
                 Related Courses
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedCourses.map((course) => (
                   <Card key={course.id} className={`overflow-hidden transition-all duration-300 ${course.status === 'locked' ? 'opacity-90' : ''}`}>
@@ -499,7 +498,7 @@ const Detail = () => {
                       )}
                       <img src={course.imageUrl} alt={course.title} className="w-full h-48 object-cover" />
                     </div>
-                    
+
                     <CardContent className="p-5">
                       <div className="flex justify-between mb-2">
                         <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-100">
@@ -507,10 +506,10 @@ const Detail = () => {
                         </Badge>
                         <span className="text-sm text-gray-500">{course.duration}</span>
                       </div>
-                      
+
                       <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.description}</p>
-                      
+
                       {course.status === 'unlocked' ? (
                         <div className="mt-4">
                           <div className="flex items-center text-green-600 font-medium mb-2">
@@ -524,7 +523,7 @@ const Detail = () => {
                             <Lock size={16} />
                             <span>Requires {course.requiredPoints} points</span>
                           </div>
-                          <Button 
+                          <Button
                             onClick={() => unlockCourse(course.id, course.requiredPoints!)}
                             className="w-full bg-green-600 hover:bg-green-700 text-white"
                             disabled={userPoints < course.requiredPoints}
@@ -544,9 +543,9 @@ const Detail = () => {
                   </Card>
                 ))}
               </div>
-              
+
               <div className="text-center mt-8">
-                <NavLink to="/courses"> 
+                <NavLink to="/courses">
                   <Button variant="outline" className="flex items-center gap-2">
                     View All Courses <ArrowRight size={16} />
                   </Button>
@@ -595,7 +594,7 @@ const Detail = () => {
             </div>
           </section>
         )}
-        
+
         {/* Show progress section if course is unlocked */}
         {isUnlocked && (
           <section className="py-12 bg-green-50">
@@ -616,7 +615,7 @@ const Detail = () => {
           </section>
         )}
       </div>
-    </MainLayout>
+    </>
   );
 };
 

@@ -1,27 +1,24 @@
-import React from "react";
-import MainLayout from "@/layouts/MainLayout";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
-  CardTitle,
-  CardDescription,
+  CardTitle
 } from "@/components/ui/card";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -45,7 +42,7 @@ const Contact: React.FC = () => {
     // TODO: handle send message
   };
   return (
-    <MainLayout>
+    <>
       <section className="text-center mt-20 px-4 py-4 md:px-0 bg-gray-50 ">
         <h1 className="text-4xl font-semibold mb-4 text-gray-600">
           Get in Touch
@@ -268,7 +265,7 @@ const Contact: React.FC = () => {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
-import MainLayout from "@/layouts/MainLayout";
+import ButtonRoadMapDetail from "@/components/common/ButtonRoadMapDetail";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -6,10 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { CalendarDays, Flag, CheckCircle2 } from "lucide-react";
-import ButtonRoadMapDetail from "@/components/common/ButtonRoadMapDetail";
+import { CalendarDays, CheckCircle2, Flag } from "lucide-react";
 
 interface RoadMapItem {
   id: string;
@@ -101,7 +100,7 @@ const getStatusVariant = (status: "upcoming" | "in-progress" | "completed") => {
 
 const RoadMap = () => {
   return (
-    <MainLayout>
+    <>
       <div className="container mx-auto px-4 py-8 mt-16">
         <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">
           Our Learning Roadmap
@@ -147,8 +146,8 @@ const RoadMap = () => {
                       item.status === "completed"
                         ? "bg-green-500"
                         : item.status === "in-progress"
-                        ? "bg-blue-500"
-                        : "bg-gray-400"
+                          ? "bg-blue-500"
+                          : "bg-gray-400"
                     }
                   />
                   <span className="text-sm text-gray-600 mt-1 block text-right">
@@ -162,7 +161,7 @@ const RoadMap = () => {
           ))}
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 };
 

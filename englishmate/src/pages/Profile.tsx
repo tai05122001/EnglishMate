@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { PencilIcon, StarIcon, Trophy, Flame, Layers, Clock, BookOpenCheck, BookOpen } from 'lucide-react';
-import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
+import { BookOpen, BookOpenCheck, Clock, Flame, Layers, PencilIcon, StarIcon, Trophy } from 'lucide-react';
+import { useState } from 'react';
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState('Overview');
@@ -16,7 +15,7 @@ const Profile = () => {
   };
 
   return (
-    <MainLayout>
+    <>
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
         {/* Profile Card Section */}
@@ -157,7 +156,7 @@ const Profile = () => {
           </div>
         </section>
       </main>
-    </MainLayout>
+    </>
   );
 };
 

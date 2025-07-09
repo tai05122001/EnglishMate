@@ -1,14 +1,14 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './styles/index.css'
-import App from './routes/index.tsx'
 import { Provider } from 'react-redux'
+import App from './routes/index.tsx'
 import store from './store'
+import './styles/index.css'
+import { Toaster } from "@/components/ui/sonner"
+
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>,
+  <Provider store={store}>
+    <Toaster />
+    <App />
+  </Provider>
 )

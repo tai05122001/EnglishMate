@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import MainLayout from "../layouts/MainLayout";
-import { TableOfContents, PolicySection, ContactCard } from "../components";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ContactCard, PolicySection, TableOfContents } from "../components";
 
 const PrivacyPolicy: React.FC = () => {
   const [isTableOpen, setIsTableOpen] = useState(false);
@@ -52,7 +51,7 @@ const PrivacyPolicy: React.FC = () => {
   }, []);
 
   return (
-    <MainLayout>
+    <>
       <div className="min-h-screen pt-24 pb-12">
         {/* Header Section */}
         <section className="w-full bg-[#FAFAFA] py-12">
@@ -82,19 +81,19 @@ const PrivacyPolicy: React.FC = () => {
                   <ChevronDown className="h-5 w-5" />
                 )}
               </button>
-              
+
               {/* Mobile/Tablet Table of Contents */}
               {isTableOpen && (
                 <div className="mt-2 bg-white rounded-md shadow-sm border border-gray-200 p-4">
-                  <TableOfContents 
-                    items={tableItems} 
+                  <TableOfContents
+                    items={tableItems}
                     className="max-h-[300px] overflow-y-auto pr-2"
                     onItemClick={handleCloseTable}
                   />
                 </div>
               )}
             </div>
-            
+
             {/* Desktop Sidebar - Table of Contents - hiển thị từ lg trở lên */}
             <aside className="hidden lg:block lg:w-1/4 lg:sticky lg:top-24 lg:self-start">
               <div className="bg-white rounded-md shadow-sm border border-gray-200 p-4">
@@ -106,17 +105,17 @@ const PrivacyPolicy: React.FC = () => {
             <div className="w-full lg:w-3/4">
               {/* 1. Introduction */}
               <PolicySection id="introduction" title="Introduction" number={1}>
-                  <p>
-                    EnglishMate is committed to protecting your privacy. This
-                    Privacy Policy explains how we collect, use, and safeguard
-                    your information when you use our language learning platform.
-                    By using our services, you agree to the collection and use of
-                    information in accordance with this policy.
-                  </p>
-                  <p>
-                    This policy applies to all users of the EnglishMate platform,
-                    including students, teachers, and visitors to our website.
-                  </p>
+                <p>
+                  EnglishMate is committed to protecting your privacy. This
+                  Privacy Policy explains how we collect, use, and safeguard
+                  your information when you use our language learning platform.
+                  By using our services, you agree to the collection and use of
+                  information in accordance with this policy.
+                </p>
+                <p>
+                  This policy applies to all users of the EnglishMate platform,
+                  including students, teachers, and visitors to our website.
+                </p>
               </PolicySection>
 
               {/* 2. Data Collection */}
@@ -226,10 +225,10 @@ const PrivacyPolicy: React.FC = () => {
               </PolicySection>
 
               {/* 8. Contact Us */}
-              <PolicySection 
-                id="contact" 
-                title="Contact Us" 
-                number={8} 
+              <PolicySection
+                id="contact"
+                title="Contact Us"
+                number={8}
                 className="mb-6"
               >
                 <>
@@ -247,7 +246,7 @@ const PrivacyPolicy: React.FC = () => {
           </div>
         </main>
       </div>
-    </MainLayout>
+    </ >
   );
 };
 

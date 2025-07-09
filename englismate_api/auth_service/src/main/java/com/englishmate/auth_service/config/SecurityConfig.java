@@ -1,7 +1,7 @@
 package com.englishmate.auth_service.config;
 
-import com.englishmate.auth_service.filter.AuthEntryPointJwt;
-import com.englishmate.auth_service.filter.AuthTokenFilter;
+import com.englishmate.common_service.filter.AuthEntryPointJwt;
+import com.englishmate.common_service.filter.AuthTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,22 +1,19 @@
-import React from "react";
-import MainLayout from "@/layouts/MainLayout";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
   CardDescription,
+  CardTitle
 } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
-import { Lightbulb, Users, Award, BookOpen } from "lucide-react";
+import { Award, BookOpen, Lightbulb, Users } from "lucide-react";
 
 const team = [
   {
@@ -70,7 +67,7 @@ const values = [
 
 export default function About() {
   return (
-    <MainLayout>
+    <>
       {/* Hero Section */}
       <section className="w-full py-24 text-center bg-gray-50">
         <div className="max-w-3xl mx-auto px-4">
@@ -153,35 +150,35 @@ export default function About() {
         <div className="max-w-7xl mx-auto py-4">  <h3 className="text-4xl font-semibold text-gray-900 mb-2 text-center">
           Our impact
         </h3>
-        <div className="mt-12 flex flex-col sm:flex-row justify-center text-center text-gray-700 gap-6 sm:gap-12">
-          <Card className="text-center p-4 file: w-1/4">
-            <CardContent>
-              <div>
-                <p className="text-3xl font-semibold">2,847</p>
-                <p className="text-sm">Active learners</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="text-center p-4 w-1/4">
-            <CardContent>
-              <div>
+          <div className="mt-12 flex flex-col sm:flex-row justify-center text-center text-gray-700 gap-6 sm:gap-12">
+            <Card className="text-center p-4 file: w-1/4">
+              <CardContent>
+                <div>
+                  <p className="text-3xl font-semibold">2,847</p>
+                  <p className="text-sm">Active learners</p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="text-center p-4 w-1/4">
+              <CardContent>
+                <div>
                   <p className="text-3xl font-semibold">94%</p>
                   <p className="text-sm">Success rate</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="text-center p-4 w-1/4">
-            <CardContent>
-              <div>
-                <p className="text-3xl font-semibold">200+</p>
-                <p className="text-sm">Hours of Content</p>
-              </div>
-            </CardContent>
-          </Card>
-          
-        </div></div>
-      
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="text-center p-4 w-1/4">
+              <CardContent>
+                <div>
+                  <p className="text-3xl font-semibold">200+</p>
+                  <p className="text-sm">Hours of Content</p>
+                </div>
+              </CardContent>
+            </Card>
+
+          </div></div>
+
       </section>
-    </MainLayout>
+    </>
   );
 }

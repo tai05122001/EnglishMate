@@ -1,33 +1,31 @@
-import React from "react";
-import MainLayout from "../layouts/MainLayout";
-import { Award, Brain, Bot, Gamepad2, LucideArrowUpToLine } from "lucide-react";
-import man1 from "../assets/man-1.svg";
-import man2 from "../assets/man-2.svg";
-import woman1 from "../assets/woman-1.svg";
-import posterHome from "../assets/bg-poster.png";
-import StarBar from "../components/common/StarBar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
 } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { NavLink } from "react-router-dom";
 import type { RootState } from "@/store";
+import { Award, Bot, Brain, Gamepad2, LucideArrowUpToLine } from "lucide-react";
+import React from "react";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import posterHome from "../assets/bg-poster.png";
+import man1 from "../assets/man-1.svg";
+import man2 from "../assets/man-2.svg";
 import aboutUs from "../assets/poster_about.png";
+import woman1 from "../assets/woman-1.svg";
+import StarBar from "../components/common/StarBar";
 
 const Home: React.FC = () => {
   const { isAuthenticated, user } = useSelector(
     (state: RootState) => state.auth
   );
   return (
-    <MainLayout>
-      {/* Hero Section */}
-      <section className="py-20 overflow-hidden bg-gray-100">
+    <>
+      <section className="py-20 overflow-hidden bg-gray-100" >
         <div className=" w-11/12 mx-auto flex flex-col md:flex-row items-center pl-4 rounded-lg bg-white p-2 shadow-lg">
           <div className="md:w-1/2 mb-10 md:mb-0  rounded-lg px-8">
             <h1 className="text-4xl md:text-5xl font-semibold mb-6 text-teal-500">
@@ -85,11 +83,11 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
-    
+
       {/* Features Section */}
-      <section className="bg-gray-100 py-20">
+      < section className="bg-gray-100 py-20" >
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-semibold text-center mb-4 text-teal-500">
             Why Choose EnglishMate?
@@ -172,11 +170,11 @@ const Home: React.FC = () => {
             </Card>
           </div>
         </div>
-      </section>
-   
+      </section >
+
 
       {/* Testimonials Section */}
-      <section className="bg-gray-100 py-20 ">
+      < section className="bg-gray-100 py-20 " >
         <div className="container mx-auto px-4 max-w-6xl ">
           <h2 className="text-3xl font-semibold text-center mb-6 text-gray-900">
             What Our Students Say
@@ -247,9 +245,9 @@ const Home: React.FC = () => {
             </Card>
           </div>
         </div>
-      </section>
-        {/* About Section */}
-        <section className="bg-white py-20 px-24">
+      </section >
+      {/* About Section */}
+      < section className="bg-white py-20 px-24" >
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
             {/* Left Column - Text and Stats */}
@@ -295,30 +293,32 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Call to Action Section */}
-      {isAuthenticated? (
+      {
+        isAuthenticated ? (
           <section className="bg-gradient-to-r from-teal-300/70 to-teal-500 py-20 text-white text-center">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-semibold mb-6">
-              Ready to Explore Your Learning Journey?
-            </h2>
-            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
-              Discover our comprehensive learning roadmap designed to guide you
-              from beginner to advanced, ensuring a clear path to fluency.
-            </p>
-            <NavLink to="/roadmap" className="text-inherit hover:text-inherit">
-              <Button size="lg" className="text-white border-2 border-white bg-black hover:bg-black/80 transition-colors duration-300">
-                View Learning Roadmap
-              </Button>
-            </NavLink>
-          </div>
-        </section>
-      ) : (
-        <> </>
-      )}
-    
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl md:text-4xl font-semibold mb-6">
+                Ready to Explore Your Learning Journey?
+              </h2>
+              <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+                Discover our comprehensive learning roadmap designed to guide you
+                from beginner to advanced, ensuring a clear path to fluency.
+              </p>
+              <NavLink to="/roadmap" className="text-inherit hover:text-inherit">
+                <Button size="lg" className="text-white border-2 border-white bg-black hover:bg-black/80 transition-colors duration-300">
+                  View Learning Roadmap
+                </Button>
+              </NavLink>
+            </div>
+          </section>
+        ) : (
+          <> </>
+        )
+      }
+
 
       {/* Statistics Section */}
       <section className="bg-gray-100 py-20">
@@ -348,7 +348,8 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
+
   );
 };
 

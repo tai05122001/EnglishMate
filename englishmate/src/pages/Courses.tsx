@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import MainLayout from "../layouts/MainLayout";
-// Remove CourseList import since we're implementing our own grid
-// import CourseList from "../components/common/CourseList";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Award, Lock } from "lucide-react";
 import poster1 from "../assets/poster_courses1.png";
 import poster2 from "../assets/poster_courses2.png";
 import poster3 from "../assets/poster_courses3.png";
 import poster4 from "../assets/poster_courses4.png";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Lock, Award } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import ButtonGetStarted from "../components/common/ButtonGetStarted";
 
 const levels = ["All Levels", "Beginner", "Intermediate", "Advanced"];
@@ -213,12 +210,12 @@ const Courses: React.FC = () => {
     if (unlockedCourses.includes(course.id) || course.status === "unlocked") {
       return false;
     }
-    
+
     // Check for required course completion
     if (course.requiredCourseId && !unlockedCourses.includes(course.requiredCourseId)) {
       return false;
     }
-    
+
     // Must have points requirement and user must have enough points
     return typeof course.requiredPoints === 'number' && userPoints >= course.requiredPoints;
   };
@@ -227,10 +224,10 @@ const Courses: React.FC = () => {
   const enhancedCourses = filteredCourses.map(course => {
     const isUnlocked = course.status === "unlocked" || unlockedCourses.includes(course.id);
     const isPurchasable = isCoursePurchasable(course);
-    
+
     // Create unlock info element based on course status
     let unlockInfo: React.ReactNode;
-    
+
     if (isUnlocked) {
       unlockInfo = (
         <div className="flex flex-col space-y-2">
@@ -242,8 +239,8 @@ const Courses: React.FC = () => {
       );
     } else if (isPurchasable && typeof course.requiredPoints === 'number') {
       unlockInfo = (
-        <Button 
-          onClick={() => unlockCourse(course.id)} 
+        <Button
+          onClick={() => unlockCourse(course.id)}
           className="bg-green-600 hover:bg-green-700 text-white"
         >
           Unlock for {course.requiredPoints} points
@@ -281,7 +278,7 @@ const Courses: React.FC = () => {
   });
 
   return (
-    <MainLayout>
+    <>
       <div className="mx-auto md:px-0">
         <section className="text-center mt-20 px-4 md:px-0">
           <h1 className="text-4xl md:text-5xl font-semibold mb-4 text-gray-600">
@@ -388,11 +385,10 @@ const Courses: React.FC = () => {
           {/* Courses list */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
             {enhancedCourses.map((course) => (
-              <Card 
-                key={course.id} 
-                className={`overflow-hidden transition-all duration-300 ${
-                  !course.isUnlocked ? 'opacity-90' : ''
-                }`}
+              <Card
+                key={course.id}
+                className={`overflow-hidden transition-all duration-300 ${!course.isUnlocked ? 'opacity-90' : ''
+                  }`}
               >
                 <div className="relative">
                   {!course.isUnlocked && (
@@ -430,7 +426,7 @@ const Courses: React.FC = () => {
                       {course.rating}
                     </span>
                   </div>
-                  
+
                   {/* Unlock status or button */}
                   <div className="mt-2">
                     {course.unlockInfo}
@@ -441,7 +437,7 @@ const Courses: React.FC = () => {
           </div>
         </section>
       </div>
-    </MainLayout>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 package com.englishmate.auth_service.entity;
 
+import com.englishmate.common_service.entity.AbstractAuditEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

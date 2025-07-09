@@ -1,11 +1,10 @@
-import React from "react";
 import { Mail } from "lucide-react";
-import MainLayout from "../layouts/MainLayout";
+import React from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
 
 const HelpCenter: React.FC = () => {
   return (
-    <MainLayout>
+    <>
       <div className="pt-16">
         {/* Hero Section */}
         <section className="bg-[#FAFAFA] py-12">
@@ -210,7 +209,7 @@ const HelpCenter: React.FC = () => {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 };
 

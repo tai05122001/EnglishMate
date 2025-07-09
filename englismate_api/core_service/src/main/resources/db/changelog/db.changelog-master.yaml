@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/20240731_create_course_table.xml
+  - include:
+      file: db/changelog/20240731_create_lesson_table.xml
+  - include:
+      file: db/changelog/20240731_create_listening_lesson_table.xml
+  - include:
+      file: db/changelog/20240731_create_speaking_lesson_table.xml
+  - include:
+      file: db/changelog/20240731_create_grammar_table.xml
+  - include:
+      file: db/changelog/20240731_create_user_answer_table.xml
+  - include:
+      file: db/changelog/20250701100000_added_entity_category.xml
+  - include:
+      file: db/changelog/20250707100000_added_entity_lesson_level.xml

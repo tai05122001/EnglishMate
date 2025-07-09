@@ -1,18 +1,17 @@
-import React from "react";
-import {
-  CheckCircle,
-  Clock,
-  Users,
-  Star,
-  BookOpen,
-  Headphones,
-  Award,
-} from "lucide-react";
-import MainLayout from "@/layouts/MainLayout";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  Award,
+  BookOpen,
+  CheckCircle,
+  Clock,
+  Headphones,
+  Star,
+  Users,
+} from "lucide-react";
+import React from "react";
 
 const plans = [
   {
@@ -123,7 +122,7 @@ const faqs = [
 
 const PricingContent: React.FC = () => {
   return (
-    <MainLayout>
+    <>
       <div className="bg-gray-50 min-h-screen pt-20 pb-16 px-4 sm:px-6 lg:px-8">
         <section className="max-w-4xl mx-auto text-center mb-16">
           <h1 className="text-4xl font-semibold text-gray-900 mb-4">
@@ -195,7 +194,7 @@ const PricingContent: React.FC = () => {
           </Accordion>
         </section>
       </div>
-    </MainLayout>
+    </>
   );
 };
 

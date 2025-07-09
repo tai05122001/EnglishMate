@@ -1,18 +1,16 @@
-import React from "react";
-import MainLayout from "../layouts/MainLayout";
-import { Progress } from "../components/ui/progress";
-import {
-  BookOpen,
-  FileText,
-  Headphones,
-  Mic,
-  Edit,
-  Layers,
-  Lightbulb,
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import {
+  BookOpen,
+  Edit,
+  FileText,
+  Headphones,
+  Layers,
+  Lightbulb,
+  Mic,
+} from "lucide-react";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 const practiceItems = [
   {
@@ -55,7 +53,7 @@ const practiceItems = [
 
 const Practice: React.FC = () => {
   return (
-    <MainLayout>
+    <>
       <section className="text-center mt-24 px-4 py-4 md:px-0  ">
         <h1 className="text-4xl font-semibold mb-4 text-gray-600">
           Practice Makes Progress
@@ -78,9 +76,17 @@ const Practice: React.FC = () => {
                 <Icon className="w-12 h-12 text-gray-700 mb-4" />
                 <h3 className="text-xl font-semibold mb-2">{title}</h3>
                 <p className="text-gray-600 text-sm">{description}</p>
-                <Button className="mt-6 w-full" size="sm">
-                  Start Practice
-                </Button>
+                {title === "Listening" ? (
+                  <NavLink to="/listening" className="w-full">
+                    <Button className="mt-6 w-full" size="sm">
+                      Start Practice
+                    </Button>
+                  </NavLink>
+                ) : (
+                  <Button className="mt-6 w-full" size="sm">
+                    Start Practice
+                  </Button>
+                )}
               </CardContent>
             </Card>
           ))}
@@ -118,7 +124,7 @@ const Practice: React.FC = () => {
           </CardContent>
         </Card>
       </section>
-    </MainLayout>
+    </>
   );
 };
 
