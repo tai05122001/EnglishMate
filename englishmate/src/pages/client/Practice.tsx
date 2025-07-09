@@ -1,6 +1,6 @@
 import React from "react";
-import MainLayout from "../layouts/MainLayout";
-import { Progress } from "../components/ui/progress";
+import MainLayout from "../../layouts/MainLayout";
+import { Progress } from "../../components/ui/progress";
 import {
   BookOpen,
   FileText,

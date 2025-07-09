@@ -2,7 +2,6 @@ import { ArrowBigLeft, ArrowRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 interface ButtonRoadMapDetail {
   id: number;
-
 }
 
 const ButtonRoadMapDetail = ({ id }: ButtonRoadMapDetail) => {
@@ -25,7 +24,7 @@ const ButtonRoadMapDetail = ({ id }: ButtonRoadMapDetail) => {
           >
             <circle fill="currentColor" r="11" cy="12" cx="12"></circle>
             <path
-              stroke-linejoin="round"
+              strokeLinejoin="round"
               stroke-linecap="round"
               stroke-width="2"
               stroke="white"

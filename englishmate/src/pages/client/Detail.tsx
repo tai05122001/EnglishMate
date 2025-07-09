@@ -6,10 +6,10 @@ import { NavLink, useParams } from "react-router-dom";
 import { Play, Check, Lock, BookOpen, ArrowRight } from "lucide-react";
 import StarRating from "@/components/common/StarRating";
 import CourseContentAccordion from "@/components/common/CourseContentAccordion";
-import poster1 from "../assets/poster_courses3.png";
-import poster2 from "../assets/poster_courses4.png";
-import poster3 from "../assets/poster_courses2.png";
-import poster4 from "../assets/poster_courses1.png";
+import poster1 from "../../assets/poster_courses3.png";
+import poster2 from "../../assets/poster_courses4.png";
+import poster3 from "../../assets/poster_courses2.png";
+import poster4 from "../../assets/poster_courses1.png";
 import { Badge } from "@/components/ui/badge";
 import ButtonGetStarted from "@/components/common/ButtonGetStarted";
 

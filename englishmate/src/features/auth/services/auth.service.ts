@@ -1,4 +1,4 @@
-import axios from "../../../lib/axios";
+import { authApi } from "../../../lib/microservices";
 import type { User, AuthResponse } from "../../../types";
 
 interface LoginCredentials {
@@ -7,9 +7,16 @@ interface LoginCredentials {
 }
 
 interface RegisterData {
-  name: string;
+  username: string;
   email: string;
   password: string;
+  roles: string[];
+}
+
+interface RefreshTokenResponse {
+  token: string;
+  refreshToken?: string;
+  user: User;
 }
 
 export const authService = {
@@ -17,32 +24,30 @@ export const authService = {
    * Login a user with email and password
    */
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    const response = await axios.post<AuthResponse>("/auth/login", credentials);
-    return response.data;
+    return authApi.post<AuthResponse>("/login", credentials);
   },
 
   /**
    * Register a new user
    */
   async register(userData: RegisterData): Promise<AuthResponse> {
-    const response = await axios.post<AuthResponse>("/auth/register", userData);
-    return response.data;
+    return authApi.post<AuthResponse>("/register", userData);
   },
 
   /**
    * Get the current logged-in user profile
    */
   async getCurrentUser(): Promise<User> {
-    const response = await axios.get<User>("/auth/profile");
-    return response.data;
+    return authApi.get<User>("/profile");
   },
 
   /**
    * Logout the current user
    */
   async logout(): Promise<void> {
-    await axios.post("/auth/logout");
+    await authApi.post<void>("/logout");
     localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
   },
 
   /**
@@ -50,5 +55,32 @@ export const authService = {
    */
   isAuthenticated(): boolean {
     return !!localStorage.getItem("token");
+  },
+
+  /**
+   * Refresh the authentication token
+   */
+  async refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
+    return authApi.post<RefreshTokenResponse>("/refresh-token", {
+      refreshToken,
+    });
+  },
+
+  /**
+   * Save authentication data to localStorage
+   */
+  saveAuthData(authData: AuthResponse): void {
+    localStorage.setItem("token", authData.token);
+    if ("refreshToken" in authData) {
+      localStorage.setItem("refreshToken", (authData as any).refreshToken);
+    }
+  },
+
+  /**
+   * Clear authentication data from localStorage
+   */
+  clearAuthData(): void {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
   },
 };

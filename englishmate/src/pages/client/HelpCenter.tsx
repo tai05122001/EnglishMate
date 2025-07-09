@@ -1,7 +1,7 @@
 import React from "react";
 import { Mail } from "lucide-react";
-import MainLayout from "../layouts/MainLayout";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
+import MainLayout from "../../layouts/MainLayout";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../components/ui/accordion";
 
 const HelpCenter: React.FC = () => {
   return (

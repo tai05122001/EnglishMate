@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import RoadmapHeader from "../components/common/RoadmapHeader";
-import RoadmapLesson from "../components/common/RoadmapLesson";
-import RoadmapProgress from "../components/common/RoadmapProgress";
-import RoadmapPreview from "../components/common/RoadmapPreview";
-import { Separator } from "../components/ui/separator";
+import RoadmapHeader from "../../components/common/RoadmapHeader";
+import RoadmapLesson from "../../components/common/RoadmapLesson";
+import RoadmapProgress from "../../components/common/RoadmapProgress";
+import RoadmapPreview from "../../components/common/RoadmapPreview";
+import { Separator } from "../../components/ui/separator";
 import MainLayout from "@/layouts/MainLayout";
 
 // Mock data for the page

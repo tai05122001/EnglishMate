@@ -1,11 +1,11 @@
 import React from "react";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../../layouts/MainLayout";
 import { Award, Brain, Bot, Gamepad2, LucideArrowUpToLine } from "lucide-react";
-import man1 from "../assets/man-1.svg";
-import man2 from "../assets/man-2.svg";
-import woman1 from "../assets/woman-1.svg";
-import posterHome from "../assets/bg-poster.png";
-import StarBar from "../components/common/StarBar";
+import man1 from "../../assets/man-1.svg";
+import man2 from "../../assets/man-2.svg";
+import woman1 from "../../assets/woman-1.svg";
+import posterHome from "../../assets/poster_login3.png";
+import StarBar from "../../components/common/StarBar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,7 +18,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { NavLink } from "react-router-dom";
 import type { RootState } from "@/store";
 import { useSelector } from "react-redux";
-import aboutUs from "../assets/poster_about.png";
+import aboutUs from "../../assets/poster_about.png";
 
 const Home: React.FC = () => {
   const { isAuthenticated, user } = useSelector(

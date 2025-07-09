@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../../layouts/MainLayout";
 // Remove CourseList import since we're implementing our own grid
 // import CourseList from "../components/common/CourseList";
-import poster1 from "../assets/poster_courses1.png";
-import poster2 from "../assets/poster_courses2.png";
-import poster3 from "../assets/poster_courses3.png";
-import poster4 from "../assets/poster_courses4.png";
+import poster1 from "../../assets/poster_courses1.png";
+import poster2 from "../../assets/poster_courses2.png";
+import poster3 from "../../assets/poster_courses3.png";
+import poster4 from "../../assets/poster_courses4.png";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Lock, Award } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import ButtonGetStarted from "../components/common/ButtonGetStarted";
+import ButtonGetStarted from "@/components/common/ButtonGetStarted";
 
 const levels = ["All Levels", "Beginner", "Intermediate", "Advanced"];
 const statuses = ["All Courses", "Unlocked", "Locked"];
