@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { TableOfContents } from "@/components";
-import PolicySection from "@/components/common/PolicySection";
 import ContactCard from "@/components/common/ContactCard";
+import PolicySection from "@/components/common/PolicySection";
 import { Card } from "@/components/ui/card";
-import MainLayout from "@/layouts/MainLayout";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 // Define the table of contents items
 const tocItems = [
@@ -61,7 +60,7 @@ const TermsOfService: React.FC = () => {
   }, []);
 
   return (
-    <MainLayout>
+    <>
       <div className="flex flex-col min-h-screen">
         {/* Hero Section */}
         <section className="w-full bg-[#FAFAFA]/50 py-12 md:py-16">
@@ -94,12 +93,12 @@ const TermsOfService: React.FC = () => {
                   <ChevronDown className="h-5 w-5" />
                 )}
               </button>
-              
+
               {/* Mobile/Tablet Table of Contents */}
               {isTableOpen && (
                 <div className="mt-2 bg-white rounded-md shadow-sm border border-gray-200 p-4">
-                  <TableOfContents 
-                    items={tocItems} 
+                  <TableOfContents
+                    items={tocItems}
                     className="max-h-[300px] overflow-y-auto pr-2"
                     onItemClick={handleCloseTable}
                   />
@@ -294,7 +293,7 @@ const TermsOfService: React.FC = () => {
           </div>
         </main>
       </div>
-    </MainLayout>
+    </>
   );
 };
 

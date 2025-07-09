@@ -2,6 +2,8 @@ package com.englishmate.core_service.entity;
 
 import com.englishmate.core_service.entity.enumerations.CourseLevel;
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +12,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "course")
+@Data
 public class Course implements Serializable {
     /**
      * Unique identifier for the course.

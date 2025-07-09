@@ -1,0 +1,52 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ Đây là dự án về website giúp người dùng học tiếng anh, sử dụng các công nghệ:
+- Typescript
+- Reactjs
+- Lib UI đang dùng là: shadcn-svelte (https://ui.shadcn.com)
+- Import theo chuẩn Typescript
+- lib icon dùng là lucide-react.
+- có code comment đầy đủ  những chỗ xử lý quan trọng, không cần quá nhiều comment , phải là tiếng anh
+Styles:
+- Màu sắc chủ đạo: #02b2a4
+- components: Chứa các component React dùng lại nhiều nơi.
+- components/ui: Các UI component cơ bản như Button, Input, Card, ...
+- components/common: Component dùng chung, logic/layout phức tạp hơn UI.
+- components/icon: Các icon component custom.
+- hooks: Custom React hooks.
+- assets: Ảnh, icon, tài nguyên tĩnh.
+- lib: Tiện ích, config, hàm dùng chung.
+- utils: Hàm tiện ích nhỏ, helpers.
+- types: Định nghĩa kiểu dữ liệu TypeScript.
+- store: Quản lý state toàn cục (Redux, ...).
+- features: Các module lớn, mỗi module gồm nhiều phần nhỏ.
+- pages: Các trang chính của ứng dụng.
+- layouts: Các layout bọc ngoài cho page.
+- styles: File CSS, SCSS, Tailwind config.
+- routes: Định nghĩa route cho ứng dụng.
+ 
+Ngoài ra: 
+1.Đặt tên và vị trí:
+Tên component phải viết hoa chữ cái đầu (PascalCase).
+Mỗi component nên nằm trong thư mục src/components hoặc các subfolder phù hợp (ví dụ: common, ui, icon).
+2. Tách biệt logic và trình bày:
+Component chỉ nên nhận props và render UI, không chứa logic xử lý dữ liệu phức tạp (logic nên để ở hooks hoặc service).
+Nếu component có nhiều phần nhỏ, tách thành các sub-component hoặc file riêng.
+3. Không sinh code trùng lặp:
+Trước khi tạo component mới, kiểm tra xem đã có component tương tự chưa.
+Tái sử dụng component chung thay vì copy-paste.
+4. Đặt tên file và export:
+Tên file trùng với tên component, ví dụ: Button.tsx cho component Button.
+Sử dụng export mặc định cho mỗi component chính.
+5. Viết chú thích (comment) rõ ràng:
+Nếu component generated tự động, thêm comment ở đầu file:
+// This file is generated. DO NOT EDIT MANUALLY.
+6. Quản lý style:
+Ưu tiên sử dụng className và tailwind hoặc styled-components, không inline style trừ trường hợp đặc biệt.
+7. Kiểm tra types:
+Luôn định nghĩa rõ ràng kiểu props (interface hoặc type).
+Không dùng any trừ khi thực sự cần thiết.
+

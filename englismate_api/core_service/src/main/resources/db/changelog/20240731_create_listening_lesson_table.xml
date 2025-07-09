@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="20240731_create_listening_lesson_table" author="truongpv">
+        <createTable tableName="listening_lessons">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="fk_lesson_id" type="BIGINT"/>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="audio_url" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transcript" type="json"/>
+            <column name="level" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exercise" type="json">
+                <constraints nullable="false"/>
+            </column>
+            <column name="completed_count" type="BIGINT"/>
+            <column name="type" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP" remarks="on update CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="deleted_at" type="timestamp"/>
+            <column name="deleted_by" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="20250701110000_add_category_to_listening_lessons" author="auto">
+        <addColumn tableName="listening_lessons">
+            <column name="fk_category_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint
+                baseTableName="listening_lessons"
+                baseColumnNames="fk_category_id"
+                referencedTableName="categories"
+                referencedColumnNames="id"
+                constraintName="fk_listening_lessons_category"/>
+    </changeSet>
+    <changeSet id="20250707120000_add_lesson_level_to_listening_lessons" author="truongpv">
+        <addColumn tableName="listening_lessons">
+            <column name="fk_lesson_level_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint
+                baseTableName="listening_lessons"
+                baseColumnNames="fk_lesson_level_id"
+                referencedTableName="lesson_levels"
+                referencedColumnNames="id"
+                constraintName="fk_listening_lessons_lesson_level"/>
+    </changeSet>
+</databaseChangeLog> 

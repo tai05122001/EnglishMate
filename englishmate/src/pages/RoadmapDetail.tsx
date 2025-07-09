@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import RoadmapHeader from "../components/common/RoadmapHeader";
 import RoadmapLesson from "../components/common/RoadmapLesson";
-import RoadmapProgress from "../components/common/RoadmapProgress";
 import RoadmapPreview from "../components/common/RoadmapPreview";
+import RoadmapProgress from "../components/common/RoadmapProgress";
 import { Separator } from "../components/ui/separator";
-import MainLayout from "@/layouts/MainLayout";
 
 // Mock data for the page
 const mockRoadmapData = {
@@ -70,7 +69,7 @@ const RoadmapDetail: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <MainLayout>
+      <>
         <main className="flex-grow">
           {/* Hero section with roadmap info */}
           <section className="bg-neutral-50 py-16">
@@ -138,7 +137,7 @@ const RoadmapDetail: React.FC = () => {
             </div>
           </section>
         </main>
-      </MainLayout>
+      </>
 
     </div>
   );

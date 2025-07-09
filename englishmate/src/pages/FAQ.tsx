@@ -1,8 +1,7 @@
-import React from "react";
-import { Mail } from "lucide-react";
-import MainLayout from "../layouts/MainLayout";
-import { Button } from "@/components/ui/button";
 import FAQItem from "@/components/common/FAQItem";
+import { Button } from "@/components/ui/button";
+import { Mail } from "lucide-react";
+import React from "react";
 
 // FAQ data
 const faqs = [
@@ -42,7 +41,7 @@ const faqs = [
 
 const FAQ: React.FC = () => {
   return (
-    <MainLayout>
+    <>
       <div className="min-h-screen pt-16 pb-12">
         {/* Header Section */}
         <section className="w-full bg-[#FAFAFA] py-12 md:py-16">
@@ -73,7 +72,7 @@ const FAQ: React.FC = () => {
             {/* Contact Support Section */}
             <div className="mt-16 text-center">
               <h3 className="text-lg font-medium text-[#525252] mb-6">Still need help?</h3>
-              <Button 
+              <Button
                 className="bg-[#171717] hover:bg-[#262626] text-white flex items-center gap-2 mx-auto px-6 py-5 h-auto rounded-md"
               >
                 <Mail className="h-5 w-5" />
@@ -83,7 +82,7 @@ const FAQ: React.FC = () => {
           </div>
         </main>
       </div>
-    </MainLayout>
+    </>
   );
 };
 
